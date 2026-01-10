@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Registo</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="form-box">
+        <h2>Registo</h2>
+
+        <form action="registar.php" method="POST">
+
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-group password-group">
+                <input type="password" name="password1" placeholder="Password" required>
+            </div>
+
+            <div class="input-group password-group">
+                <input type="password" name="password2" placeholder="Confirmar Password" required>
+            </div>
+
+            <button type="submit" class="btn">Registar</button>
+
+            <p class="toggle-text">
+                Já tens conta?
+                <a href="login.html">Efetua o Login</a>
+            </p>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

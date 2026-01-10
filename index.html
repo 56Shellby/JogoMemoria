@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jogo da Memória</title>
+        <link rel="stylesheet" href="styles.css">
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+    </head>
+    <body>
+        <div class="menu" id="menu">
+            <h1>Jogo da Memória</h1>
+
+            <p>Escolhe a dificuldade:</p>
+
+            <div class="dificuldades">
+                <button class="dif-btn" onclick="selecionarDificuldade('facil', this)">
+                    <span class="material-icons">sentiment_satisfied</span>
+                    Fácil
+                </button>
+
+                <button class="dif-btn" onclick="selecionarDificuldade('medio', this)">
+                    <span class="material-icons">sentiment_neutral</span>
+                    Médio
+                </button>
+
+                <button class="dif-btn" onclick="selecionarDificuldade('dificil', this)">
+                    <span class="material-icons">sentiment_very_dissatisfied</span>
+                    Difícil
+                </button>
+
+            </div>
+            <button class="start-btn" onclick="comecarJogo()">Começar Jogo</button>
+        </div>
+            <div class="game-container" id="game">
+            <div class="game-header">
+                <button class="back-btn" onclick="voltarMenu()">
+                    <span class="material-icons">arrow_back</span>
+                    Voltar
+                </button>
+
+                <div class="header-center">
+                    <h1>Jogo da Memória</h1>
+                    <div class="stats">
+                        <span>Jogadas: <strong id="moves">0</strong></span>
+                        <span>Tempo: <strong id="time">00:00</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <ul class="cards"></ul>
+            </div>
+
+        </div>
+        <div class="end-screen" id="endScreen">
+            <div class="end-box">
+                <h1>🎉 Parabéns!</h1>
+
+                <p>Concluíste o jogo com sucesso!</p>
+
+                <div class="end-stats">
+                    <p>Jogadas: <strong id="endMoves"></strong></p>
+                    <p>Tempo: <strong id="endTime"></strong></p>
+                    <p>Dificuldade: <strong id="endDifficulty"></strong></p>
+                </div>
+
+                <div class="end-buttons">
+                    <button onclick="guardarHistorico()">Guardar no histórico</button>
+                    <button onclick="novoJogo()">Novo jogo</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
