@@ -46,7 +46,6 @@ body {
     border-color: #6563ff;
 }
 
-/* Campo password */
 .password-group span {
     position: absolute;
     right: 10px;
@@ -113,4 +112,20 @@ body {
     color: #0a7a0a;
     background-color: #d6ffd6;
     border: 1px solid #0a7a0a;
+}
+
+.toggle-text {
+    text-align: center;
+    margin-top: 15px;
+    color: #ccc;
+}
+
+.toggle-text a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+#mensagem {
+    text-align: center;
+    margin-top: 10px;
 }

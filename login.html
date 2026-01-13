@@ -9,16 +9,16 @@
 
 <div class="container">
     <div class="form-box">
-        <h2 id="form-title">Login</h2>
+        <h2>Login</h2>
 
-        <form id="auth-form" action="login.php" method="POST">
+        <form id="loginForm">
 
             <div class="input-group">
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" id="username" placeholder="Username" required>
             </div>
 
             <div class="input-group password-group">
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" placeholder="Password" required>
                 <span id="toggle-password">👁</span>
             </div>
 
@@ -26,12 +26,52 @@
 
             <p class="toggle-text">
                 Não tens conta?
-                <a href="registo.html" class="toggle-link">Regista-te</a>
+                <a href="registo.html">Regista-te</a>
             </p>
+
+            <p id="mensagem"></p>
         </form>
     </div>
 </div>
 
-<script src="login.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const toggle = document.getElementById("toggle-password");
+    const passwordInput = document.getElementById("password");
+
+    toggle.addEventListener("click", () => {
+        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const mensagem = document.getElementById("mensagem");
+
+        const utilizadores = JSON.parse(localStorage.getItem("utilizadores")) || [];
+
+        const user = utilizadores.find(u =>
+            u.username === username && u.password === password
+        );
+
+        if (user) {
+            localStorage.setItem("utilizadorLogado", username);
+            mensagem.style.color = "green";
+            mensagem.textContent = "Login efetuado com sucesso!";
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        }else {
+            mensagem.style.color = "red";
+            mensagem.textContent = "Username ou password incorretos.";
+        }
+    });
+});
+</script>
+
 </body>
 </html>

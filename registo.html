@@ -11,18 +11,18 @@
     <div class="form-box">
         <h2>Registo</h2>
 
-        <form action="registar.php" method="POST">
+        <form id="registoForm">
 
             <div class="input-group">
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" id="username" placeholder="Username" required>
             </div>
 
             <div class="input-group password-group">
-                <input type="password" name="password1" placeholder="Password" required>
+                <input type="password" id="password1" placeholder="Password" required>
             </div>
 
             <div class="input-group password-group">
-                <input type="password" name="password2" placeholder="Confirmar Password" required>
+                <input type="password" id="password2" placeholder="Confirmar Password" required>
             </div>
 
             <button type="submit" class="btn">Registar</button>
@@ -32,9 +32,55 @@
                 <a href="login.html">Efetua o Login</a>
             </p>
 
+            <p id="mensagem"></p>
+
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.getElementById("registoForm");
+    const mensagem = document.getElementById("mensagem");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const pass1 = document.getElementById("password1").value;
+        const pass2 = document.getElementById("password2").value;
+
+        if (pass1 !== pass2) {
+            mensagem.textContent = "As passwords não coincidem.";
+            mensagem.style.color = "red";
+            return;
+        }
+
+        let utilizadores = JSON.parse(localStorage.getItem("utilizadores")) || [];
+
+        if (utilizadores.some(u => u.username === username)) {
+            mensagem.textContent = "Esse username já existe.";
+            mensagem.style.color = "red";
+            return;
+        }
+
+        utilizadores.push({
+            username: username,
+            password: pass1
+        });
+
+        localStorage.setItem("utilizadores", JSON.stringify(utilizadores));
+
+        mensagem.style.color = "green";
+        mensagem.textContent = "Registo efetuado com sucesso!";
+
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1000);
+    });
+});
+</script>
 
 </body>
 </html>

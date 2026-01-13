@@ -1,77 +1,163 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Jogo da Memória</title>
-        <link rel="stylesheet" href="styles.css">
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <title>Jogo da Memória</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
-    </head>
-    <body>
-        <div class="menu" id="menu">
+<body>
+    <header class="top-bar">
+        <div class="user-info">
+            <span class="material-icons">person</span>
+            <span id="usernameDisplay"></span>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            <span class="material-icons">logout</span>
+            Encerrar sessão
+        </button>
+    </header>
+
+<div class="home-layout" id="homeLayout">
+
+    <div class="menu stats-box" id="personalStats">
+        <h2>As Minhas Estatísticas</h2>
+        <div class="stats-content" id="personalStatsContent">
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Tempo</th>
+                        <th>Jogadas</th>
+                        <th>Dificuldade</th>
+                        <th>Modo</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody id="personalTableBody">
+                    <tr>
+                        <td colspan="5">Sem dados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="menu" id="menu">
+        <h1>Jogo da Memória</h1>
+
+        <div class="modo-slider">
+            <span id="modoLabel">Singleplayer</span>
+            <div class="slider" id="slider">
+                <div class="thumb" id="thumb"></div>
+            </div>
+        </div>
+
+        <p>Escolhe a dificuldade:</p>
+
+        <div class="dificuldades">
+            <button class="dif-btn" onclick="selecionarDificuldade('facil', this)">
+                <span class="material-icons">sentiment_satisfied</span>
+                Fácil
+            </button>
+
+            <button class="dif-btn" onclick="selecionarDificuldade('medio', this)">
+                <span class="material-icons">sentiment_neutral</span>
+                Médio
+            </button>
+
+            <button class="dif-btn" onclick="selecionarDificuldade('dificil', this)">
+                <span class="material-icons">sentiment_very_dissatisfied</span>
+                Difícil
+            </button>
+        </div>
+
+        <button class="start-btn" onclick="comecarJogo()">Começar Jogo</button>
+    </div>
+
+    <div class="menu stats-box" id="globalStats">
+        <h2>Estatísticas Globais</h2>
+        <div class="stats-content" id="globalStatsContent">
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>Utilizador</th>
+                        <th>Tempo</th>
+                        <th>Jogadas</th>
+                        <th>Dificuldade</th>
+                        <th>Modo</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody id="globalTableBody">
+                    <tr>
+                        <td colspan="6">Sem dados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="game-container" id="game" style="display: none;">
+
+    <div class="game-header">
+        <button class="back-btn" onclick="voltarMenu()">
+            <span class="material-icons">arrow_back</span>
+            Voltar
+        </button>
+
+        <div class="header-center">
             <h1>Jogo da Memória</h1>
-
-            <p>Escolhe a dificuldade:</p>
-
-            <div class="dificuldades">
-                <button class="dif-btn" onclick="selecionarDificuldade('facil', this)">
-                    <span class="material-icons">sentiment_satisfied</span>
-                    Fácil
-                </button>
-
-                <button class="dif-btn" onclick="selecionarDificuldade('medio', this)">
-                    <span class="material-icons">sentiment_neutral</span>
-                    Médio
-                </button>
-
-                <button class="dif-btn" onclick="selecionarDificuldade('dificil', this)">
-                    <span class="material-icons">sentiment_very_dissatisfied</span>
-                    Difícil
-                </button>
-
-            </div>
-            <button class="start-btn" onclick="comecarJogo()">Começar Jogo</button>
-        </div>
-            <div class="game-container" id="game">
-            <div class="game-header">
-                <button class="back-btn" onclick="voltarMenu()">
-                    <span class="material-icons">arrow_back</span>
-                    Voltar
-                </button>
-
-                <div class="header-center">
-                    <h1>Jogo da Memória</h1>
-                    <div class="stats">
-                        <span>Jogadas: <strong id="moves">0</strong></span>
-                        <span>Tempo: <strong id="time">00:00</strong></span>
-                    </div>
-                </div>
-            </div>
-            <div class="wrapper">
-                <ul class="cards"></ul>
-            </div>
-
-        </div>
-        <div class="end-screen" id="endScreen">
-            <div class="end-box">
-                <h1>🎉 Parabéns!</h1>
-
-                <p>Concluíste o jogo com sucesso!</p>
-
-                <div class="end-stats">
-                    <p>Jogadas: <strong id="endMoves"></strong></p>
-                    <p>Tempo: <strong id="endTime"></strong></p>
-                    <p>Dificuldade: <strong id="endDifficulty"></strong></p>
-                </div>
-
-                <div class="end-buttons">
-                    <button onclick="guardarHistorico()">Guardar no histórico</button>
-                    <button onclick="novoJogo()">Novo jogo</button>
-                </div>
+            <div class="stats">
+                <span>Jogadas: <strong id="moves">0</strong></span>
+                <span>Tempo: <strong id="time">00:00</strong></span>
             </div>
         </div>
+    </div>
 
-        <script src="script.js"></script>
-    </body>
+    <div class="game-layout">
+        <div class="wrapper">
+            <ul class="cards"></ul>
+        </div>
+
+        <div class="scoreboard" id="scoreboard">
+            <h2>Multiplayer</h2>
+            <p class="player" id="p1">Jogador 1: <strong id="p1score">0</strong></p>
+            <p class="player" id="p2">Jogador 2: <strong id="p2score">0</strong></p>
+            <p id="turnoAtual">Vez do Jogador 1</p>
+        </div>
+    </div>
+
+</div>
+<div class="end-screen" id="endScreen">
+    <div class="end-box">
+
+        <h1 id="endTitle">🎉 Parabéns!</h1>
+
+        <div class="end-stats" id="singleplayerStats">
+            <p><strong>Jogadas:</strong> <span id="endMoves"></span></p>
+            <p><strong>Tempo:</strong> <span id="endTime"></span></p>
+            <p><strong>Dificuldade:</strong> <span id="endDifficulty"></span></p>
+        </div>
+
+        <div class="end-stats" id="multiplayerStats" style="display:none">
+            <p>Jogador 1: <strong id="endP1Score"></strong> pares</p>
+            <p>Jogador 2: <strong id="endP2Score"></strong> pares</p>
+            <p id="vencedor" class="winner-text"></p>
+        </div>
+
+        <div class="end-buttons">
+            <button id="btnGuardar" onclick="guardarHistorico()">Guardar Histórico</button>
+            <button onclick="novoJogo()">Novo jogo</button>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
 </html>
